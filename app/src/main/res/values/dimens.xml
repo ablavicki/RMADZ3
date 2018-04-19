@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="margin_fab">10dp</dimen>
+    <dimen name="size_title">25sp</dimen>
+    <dimen name="size_category">15sp</dimen>
+    <dimen name="height_image">120dp</dimen>
+    <dimen name="width_image">10dp</dimen>
+    <dimen name="margin">5dp</dimen>
+    <dimen name="size_addText">20sp</dimen>
+    <dimen name="margin_image">10dp</dimen>
+    <dimen name="small_padding">6dp</dimen>
+    <dimen name="big_padding">16dp</dimen>
+</resources>

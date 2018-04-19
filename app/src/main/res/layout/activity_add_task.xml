@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_task"
+        android:textSize="@dimen/size_addText"
+        android:layout_alignBaseline="@id/etTask"
+        android:layout_margin="@dimen/margin"/>
+
+    <EditText
+        android:id="@+id/etTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/hint_task"
+        android:inputType="textAutoComplete"
+        android:padding="@dimen/small_padding"
+        android:layout_marginBottom="@dimen/big_padding"
+        android:layout_marginTop="@dimen/big_padding"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/tvTask"/>
+
+    <TextView
+        android:id="@+id/tvCategoryAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etTask"
+        android:text="@string/task_category"
+        android:textSize="@dimen/size_addText"
+        android:layout_margin="@dimen/margin"/>
+
+    <Spinner
+        android:id="@+id/sCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tvCategoryAdd"
+        android:layout_below="@id/etTask"
+        android:textSize="@dimen/size_addText"
+        android:layout_margin="@dimen/margin"
+        />
+
+    <Button
+        android:id="@+id/bAddCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/sCategory"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/big_padding"
+        android:layout_marginBottom="@dimen/big_padding"
+        android:text="@string/new_category"/>
+
+    <TextView
+        android:id="@+id/tvPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bAddCategory"
+        android:text="@string/task_priority"
+        android:textSize="@dimen/size_addText"
+        android:layout_margin="@dimen/margin"
+        />
+
+    <Spinner
+        android:id="@+id/sPriority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bAddCategory"
+        android:layout_toRightOf="@id/tvPriority"
+        android:textSize="@dimen/size_addText"
+        android:layout_margin="@dimen/margin"/>
+
+    <Button
+        android:id="@+id/bAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/button_add"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

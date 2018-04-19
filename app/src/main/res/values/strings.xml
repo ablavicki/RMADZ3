@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">RMADZ3</string>
+    <string name="hint_task">Task...</string>
+    <string name="hint_category">Category...</string>
+    <string name="button_add">Add</string>
+    <string name="enter_task">Enter task:</string>
+    <string name="task_category">Choose task category:</string>
+    <string name="task_priority">Choose task priority:</string>
+    <string name="empty_not_saved">Task not saved because it is empty.</string>
+    <string name="new_category">New category</string>
+    <string-array name="priority">
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
 </resources>

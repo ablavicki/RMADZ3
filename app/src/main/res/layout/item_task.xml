@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="@dimen/margin">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/ivPriority"
+        android:layout_width="@dimen/width_image"
+        android:layout_height="@dimen/height_image"
+        android:layout_marginRight="@dimen/margin_image"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/ivPriority"
+        android:textSize="@dimen/size_title"
+        android:layout_marginBottom="@dimen/margin"/>
+
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/ivPriority"
+        android:layout_below="@id/tvName"
+        android:textSize="@dimen/size_category"
+        android:layout_marginTop="@dimen/margin"/>
+
+</RelativeLayout>
