@@ -34,7 +34,7 @@
         android:textSize="@dimen/size_addText"
         android:layout_margin="@dimen/margin"/>
 
-    <com.jaredrummler.materialspinner.MaterialSpinner
+    <Spinner
         android:id="@+id/sCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

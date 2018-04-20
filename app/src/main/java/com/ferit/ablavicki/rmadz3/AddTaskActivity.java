@@ -1,6 +1,7 @@
 package com.ferit.ablavicki.rmadz3;
 
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +30,11 @@ public class AddTaskActivity extends AppCompatActivity {
     EditText etTask;
 
     @BindView(R.id.sCategory)
-    MaterialSpinner sCategory;
+    Spinner sCategory;
 
     @BindView(R.id.sPriority)
     Spinner sPriority;
 
-    private int priority;
-    private String category;
     ArrayList<String> cList;
     private TaskViewModel mTaskViewModel;
 
@@ -47,10 +44,8 @@ public class AddTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
         ButterKnife.bind(this);
 
-        spinnerSetup();
-    }
+        mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
 
-    public void spinnerSetup(){
         mTaskViewModel.getAllCategories().observe(this, new Observer<List<Category>>() {
             @Override
             public void onChanged(@Nullable List<Category> categories) {
@@ -58,17 +53,20 @@ public class AddTaskActivity extends AppCompatActivity {
                 for(Category category : categories){
                     cList.add(category.getCategoryName());
                 }
-                sCategory.setItems(cList);
-                category = categories.get(sCategory.getSelectedIndex()).getCategoryName();
             }
         });
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sCategory.setAdapter(adapter);
 
-        sCategory.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                category = item;
-            }
-        });
+        spinnerSetup();
+    }
+
+    public void spinnerSetup(){
+
+
+
+
     }
 
     @OnClick(R.id.bAdd)
