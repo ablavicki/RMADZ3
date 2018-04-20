@@ -13,30 +13,81 @@ public class TaskRepository {
 
     private TaskDao mTaskDao;
     private LiveData<List<Task>> mAllTasks;
+    private LiveData<List<Category>> mAllCategories;
 
     TaskRepository(Application application) {
         TaskRoomDatabase db = TaskRoomDatabase.getDatabase(application);
         mTaskDao = db.taskDao();
         mAllTasks = mTaskDao.getAllTasks();
+        mAllCategories = mTaskDao.getAllCategories();
     }
 
     LiveData<List<Task>> getAllTasks(){
         return mAllTasks;
     }
 
-    public void insert(Task task){
-        new insertAsyncTask(mTaskDao).execute(task);
+    public void insertTask(Task task){
+        new insertTaskAsyncTask(mTaskDao).execute(task);
     }
 
-    private static class insertAsyncTask extends AsyncTask<Task, Void, Void>{
+    public void deleteTask(Task task) {
+        new deleteTaskAsyncTask(mTaskDao).execute(task);
+    }
+
+    LiveData<List<Category>> getAllCategories(){ return mAllCategories; }
+
+    public void insertCategory(Category category) { new insertCategoryAsyncTask(mTaskDao).execute(category);}
+
+    public void deleteCategory(Category category) { new deleteCategoryAsyncTask(mTaskDao).execute(category);}
+
+    private static class insertTaskAsyncTask extends AsyncTask<Task, Void, Void>{
         private TaskDao mAsyncTaskDao;
-        insertAsyncTask(TaskDao dao){
+        insertTaskAsyncTask(TaskDao dao){
             mAsyncTaskDao = dao;
         }
 
         @Override
         protected Void doInBackground(final Task... tasks) {
-            mAsyncTaskDao.insert(tasks[0]);
+            mAsyncTaskDao.insertTask(tasks[0]);
+            return null;
+        }
+    }
+
+    private static class deleteTaskAsyncTask extends AsyncTask<Task, Void, Void> {
+        private TaskDao mAsyncTaskDao;
+        deleteTaskAsyncTask(TaskDao dao){ mAsyncTaskDao = dao; }
+
+        @Override
+        protected Void doInBackground(final Task... params) {
+            mAsyncTaskDao.deleteTask(params[0]);
+            return null;
+        }
+    }
+
+    private static class insertCategoryAsyncTask extends AsyncTask<Category, Void, Void> {
+        private TaskDao mAsyncTaskDao;
+
+        insertCategoryAsyncTask(TaskDao dao){
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Category... params) {
+            mAsyncTaskDao.insertCategory(params[0]);
+            return null;
+        }
+    }
+
+    private static class deleteCategoryAsyncTask extends AsyncTask<Category, Void, Void>{
+        private TaskDao mAsyncTaskDao;
+
+        deleteCategoryAsyncTask (TaskDao dao){
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Category... params) {
+            mAsyncTaskDao.deleteCategory(params[0]);
             return null;
         }
     }

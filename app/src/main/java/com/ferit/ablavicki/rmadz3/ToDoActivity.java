@@ -71,7 +71,7 @@ public class ToDoActivity extends AppCompatActivity {
 
         if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Task task = new Task(data.getIntExtra(TASK_PRIORITY, 0), data.getStringExtra(TASK_NAME), data.getStringExtra(TASK_CATEGORY));
-            mTaskViewModel.insert(task);
+            mTaskViewModel.insertTask(task);
         } else {
             Toast.makeText(
                     getApplicationContext(),

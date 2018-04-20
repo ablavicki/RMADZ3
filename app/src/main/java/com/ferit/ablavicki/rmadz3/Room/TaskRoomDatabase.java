@@ -8,10 +8,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.ferit.ablavicki.rmadz3.Category;
 import com.ferit.ablavicki.rmadz3.R;
 import com.ferit.ablavicki.rmadz3.Task;
 
-@Database(entities = {Task.class}, version=1)
+@Database(entities = {Task.class, Category.class}, version=1)
 public abstract class TaskRoomDatabase extends RoomDatabase {
 
     public abstract TaskDao taskDao();
@@ -53,13 +54,14 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            mDao.deleteAll();
-            Task task = new Task (R.color.highPriority, "lala", "blabla");
-            mDao.insert(task);
-            task = new Task (R.color.lowPriority, "lahla", "blawetbla");
-            mDao.insert(task);
-            task = new Task (R.color.mediumPriority, "lal6ikla", "blabethla");
-            mDao.insert(task);
+            Category category = new Category("Personal");
+            mDao.insertCategory(category);
+            category = new Category("School");
+            mDao.insertCategory(category);
+            category = new Category("Work");
+            mDao.insertCategory(category);
+            category = new Category("Other");
+            mDao.insertCategory(category);
             return null;
         }
     }
