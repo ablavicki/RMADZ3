@@ -46,6 +46,13 @@ public class AddTaskActivity extends AppCompatActivity {
 
         mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
 
+
+
+
+        spinnerSetup();
+    }
+
+    public void spinnerSetup(){
         mTaskViewModel.getAllCategories().observe(this, new Observer<List<Category>>() {
             @Override
             public void onChanged(@Nullable List<Category> categories) {
@@ -53,19 +60,16 @@ public class AddTaskActivity extends AppCompatActivity {
                 for(Category category : categories){
                     cList.add(category.getCategoryName());
                 }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, cList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                sCategory.setAdapter(adapter);
             }
+
         });
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cList);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.priority, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sCategory.setAdapter(adapter);
-
-        spinnerSetup();
-    }
-
-    public void spinnerSetup(){
-
-
-
+        sPriority.setAdapter(adapter);
 
     }
 
@@ -77,7 +81,7 @@ public class AddTaskActivity extends AppCompatActivity {
         }
         else{
             String name = etTask.getText().toString();
-            String category = "work";
+            String category = sCategory.getSelectedItem().toString();
             int priority = prioritySetup(sPriority.getSelectedItemPosition());
             Intent.putExtra(ToDoActivity.TASK_NAME, name);
             Intent.putExtra(ToDoActivity.TASK_CATEGORY, category);

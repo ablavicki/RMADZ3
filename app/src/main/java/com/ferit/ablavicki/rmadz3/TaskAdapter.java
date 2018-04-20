@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -16,13 +17,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
+class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
-    List<Task> mTasks;
-    Context context;
+    private List<Task> mTasks;
+    private ClickCallback mClickCallback;
 
-    public TaskAdapter(Context context){
-        this.context = context;
+    public TaskAdapter(List<Task> tasks, ClickCallback onTaskClickListener){
+        mTasks = new ArrayList<>();
+        this.refreshData(tasks);
+        mClickCallback = onTaskClickListener;
     }
 
     @NonNull
@@ -30,7 +33,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.item_task, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mClickCallback);
     }
 
     @Override
@@ -53,7 +56,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         else return 0;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        ClickCallback mClickCallback;
 
         @BindView(R.id.ivPriority)
         ImageView ivPriority;
@@ -64,22 +69,25 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         @BindView(R.id.tvCategory)
         TextView tvCategory;
 
-        public ViewHolder(View itemView) {
+        @BindView(R.id.rvToDo)
+        RecyclerView rvToDo;
+
+        public ViewHolder(View itemView, final ClickCallback callback) {
             super(itemView);
+            mClickCallback = callback;
             ButterKnife.bind(this, itemView);
-
-        }
-
-        /*@OnClick
-        public void onTaskClick(){
-            onClick(mTasks.get(getAdapterPosition()));
         }
 
         @OnLongClick
         public boolean onTaskLongClick(){
-            return onLongClick(mTasks.get(getAdapterPosition()));
-        }*/
-
-
+            return mClickCallback.onLongClick(mTasks.get(getAdapterPosition()));
+        }
     }
+
+    public void refreshData(List<Task> tasks) {
+        mTasks.clear();
+        mTasks.addAll(tasks);
+        this.notifyDataSetChanged();
+    }
+
 }

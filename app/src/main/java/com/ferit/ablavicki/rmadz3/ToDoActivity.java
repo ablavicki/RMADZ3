@@ -50,13 +50,15 @@ public class ToDoActivity extends AppCompatActivity {
     }
 
     private void setupRV() {
-        mTaskAdapter = new TaskAdapter(this);
-        mLayoutManager = new LinearLayoutManager(this);
+        mTaskAdapter = new TaskAdapter(new ArrayList<Task>(), onTaskClickListener);
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
 
         rvToDo.addItemDecoration(mItemDecoration);
         rvToDo.setLayoutManager(mLayoutManager);
         rvToDo.setAdapter(mTaskAdapter);
+
+
 
     }
 
@@ -79,4 +81,12 @@ public class ToDoActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
+
+    private ClickCallback onTaskClickListener = new ClickCallback() {
+        @Override
+        public boolean onLongClick(Task task) {
+            mTaskViewModel.deleteTask(task);
+            return true;
+        }
+    };
 }
