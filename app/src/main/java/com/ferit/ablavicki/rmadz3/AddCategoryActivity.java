@@ -35,7 +35,7 @@ public class AddCategoryActivity extends AppCompatActivity {
         }
         else{
             String category = etCategory.getText().toString();
-            Intent.putExtra(ToDoActivity.TASK_CATEGORY, category);
+            Intent.putExtra(AddTaskActivity.CATEGORY_NAME, category);
             setResult(RESULT_OK, Intent);
         }
         finish();

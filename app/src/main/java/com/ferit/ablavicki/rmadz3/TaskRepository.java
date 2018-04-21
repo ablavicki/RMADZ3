@@ -47,8 +47,8 @@ public class TaskRepository {
         }
 
         @Override
-        protected Void doInBackground(final Task... tasks) {
-            mAsyncTaskDao.insertTask(tasks[0]);
+        protected Void doInBackground(final Task... params) {
+            mAsyncTaskDao.insertTask(params[0]);
             return null;
         }
     }

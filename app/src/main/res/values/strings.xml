@@ -7,6 +7,7 @@
     <string name="task_category">Choose task category:</string>
     <string name="task_priority">Choose task priority:</string>
     <string name="empty_not_saved">Task not saved because it is empty.</string>
+    <string name="category_empty_not_saved">Task not saved because it is empty.</string>
     <string name="new_category">New category</string>
     <string-array name="priority">
         <item>High</item>

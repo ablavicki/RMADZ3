@@ -69,9 +69,6 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         @BindView(R.id.tvCategory)
         TextView tvCategory;
 
-        @BindView(R.id.rvToDo)
-        RecyclerView rvToDo;
-
         public ViewHolder(View itemView, final ClickCallback callback) {
             super(itemView);
             mClickCallback = callback;

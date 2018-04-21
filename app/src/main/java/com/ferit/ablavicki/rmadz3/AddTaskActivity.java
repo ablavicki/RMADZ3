@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ import butterknife.OnClick;
 
 public class AddTaskActivity extends AppCompatActivity {
 
-    public static final int ADD_TASK_ACTIVITY_REQUEST_CODE = 1;
+    public static final int ADD_CATEGORY_ACTIVITY_REQUEST_CODE = 1;
     public static final String CATEGORY_NAME = "category_name";
 
     @BindView(R.id.etTask)
@@ -46,13 +45,10 @@ public class AddTaskActivity extends AppCompatActivity {
 
         mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
 
-
-
-
-        spinnerSetup();
+        setup();
     }
 
-    public void spinnerSetup(){
+    public void setup(){
         mTaskViewModel.getAllCategories().observe(this, new Observer<List<Category>>() {
             @Override
             public void onChanged(@Nullable List<Category> categories) {
@@ -64,7 +60,6 @@ public class AddTaskActivity extends AppCompatActivity {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 sCategory.setAdapter(adapter);
             }
-
         });
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.priority, android.R.layout.simple_spinner_item);
@@ -78,6 +73,10 @@ public class AddTaskActivity extends AppCompatActivity {
         Intent Intent = new Intent();
         if(TextUtils.isEmpty(etTask.getText())){
             setResult(RESULT_CANCELED, Intent);
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.empty_not_saved,
+                    Toast.LENGTH_LONG).show();
         }
         else{
             String name = etTask.getText().toString();
@@ -106,19 +105,18 @@ public class AddTaskActivity extends AppCompatActivity {
     @OnClick(R.id.bAddCategory)
     public void addCategory(){
         Intent intent = new Intent(this, AddCategoryActivity.class);
-        startActivityForResult(intent, ADD_TASK_ACTIVITY_REQUEST_CODE);
+        startActivityForResult(intent, ADD_CATEGORY_ACTIVITY_REQUEST_CODE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == ADD_CATEGORY_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Category category = new Category(data.getStringExtra(CATEGORY_NAME));
-            //mTaskViewModel.insert(task);
+            mTaskViewModel.insertCategory(category);
         } else {
             Toast.makeText(
                     getApplicationContext(),
-                    R.string.empty_not_saved,
+                    R.string.category_empty_not_saved,
                     Toast.LENGTH_LONG).show();
         }
     }

@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface TaskDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTask (Task task);
 
     @Query("DELETE FROM task_table")
